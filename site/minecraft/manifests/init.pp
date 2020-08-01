@@ -1,14 +1,11 @@
 class minecraft {
-  file {'/opt/minecraft':
+  file {‘/opt/minecraft’:
     ensure => directory,
   }
-  file {'/opt/minecraft/minecraft_server.jar':
+  file {‘/opt/minecraft/minecraft_server.1.12.2.jar’:
     ensure => file,
-    source => 'https://s3.amazonaws.com/Minecraft.Download/versions/1.12.1/minecraft_server.1.12.1.jar',
-    before => Service[‘minecraft’],
+    source      => 'https://s3.amazonaws.com/Minecraft.Download/versions/1.12.2/minecraft_server.1.12.2.jar',
   }
-
-
   package {‘java’:
     ensure => present,
   }
@@ -23,7 +20,4 @@ class minecraft {
   service { ‘minecraft’:
     ensure => running,
     enable => true,
-    require => [Package[‘java’],File[‘/opt/minecraft/eula.txt’],File[‘/etc/systemd/system/minecraft.service’]],
   }
-}
-
